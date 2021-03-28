@@ -1,4 +1,4 @@
-function factorialize(num) {
+function factorialize(num) {//gives factorials
   if (num < 0) 
         return -1;
   else if (num == 0) 
@@ -7,7 +7,7 @@ function factorialize(num) {
         return (num * factorialize(num - 1));
     }
 }
-function testPrime(n) {
+function testPrime(n) {//tests if a number is prime
   if(n === 1) {
     return false;
   }
@@ -24,7 +24,7 @@ function testPrime(n) {
   return true;
   }
 }
-function generatePrimes(n){
+function generatePrimes(n){ //generates the smallest to highest prime numbers for amount n
   var primeHolder = [];
   var count = 1;
   for(var i = 0; i < n; i++){
@@ -37,7 +37,7 @@ function generatePrimes(n){
   }
   return primeHolder;
 }
-function createPotentialOutcomes(l){
+function createPotentialOutcomes(l){ //generates all potential outcomes for two player teams
   var teams = []
   for (var i = 0; i < l.length; i++)
   {
@@ -48,7 +48,7 @@ function createPotentialOutcomes(l){
   }
   return teams;
 }
-function comparePrimes(t, u, p){//p is the list of primes
+function comparePrimes(t, u, p){//p is the list of primes.  This compares the primes to see how many prime factors the two primes have.  If they have four, that means they have 4 unique primes.
   var primeable = 0;  
   for(var i = 0; i < p.length; i++){
     if(t % p[i] === 0 || u % p[i] === 0){
@@ -57,7 +57,7 @@ function comparePrimes(t, u, p){//p is the list of primes
   }
   return primeable;
 }
-function decideSingle(l){
+function decideSingle(l){ //generates the games based on outcomes by testing if two teams contain the same people or not.
   var allOutcomes = createPotentialOutcomes(l);
   var backupOutcomes = createPotentialOutcomes(l);
   var game = [];
@@ -66,7 +66,7 @@ function decideSingle(l){
   var i = allOutcomes.length-1;
   //console.log(allOutcomes.length);
   while(allOutcomes.length > count){
-    while(comparePrimes(allOutcomes[count], allOutcomes[i], l) !== 4){
+    while(comparePrimes(allOutcomes[count], allOutcomes[i], l) !== 4){ 
       //console.log(i);
       
       i--;
