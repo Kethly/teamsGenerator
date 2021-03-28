@@ -81,7 +81,7 @@ function decideSingle(l){ //generates the games based on outcomes by testing if 
     i = allOutcomes.length-1;
     
   }
-  for(var g = 0; g < allOutcomes.length; g++){
+  for(var g = 0; g < allOutcomes.length; g++){ //removes extra leftovers that were already added.
     for(var z = 0; z < games.length; z++){
       //console.log(String(games[z] + ":" + String(allOutcomes[g])));
       if(games[z] === allOutcomes[g]){
@@ -94,7 +94,7 @@ function decideSingle(l){ //generates the games based on outcomes by testing if 
   i = backupOutcomes.length - 1;
   count = 0;
   console.log(allOutcomes.length);
-  for(var q = 0; q < allOutcomes.length; q++){
+  for(var q = 0; q < allOutcomes.length; q++){ //adds a random game for an extra team
   while(comparePrimes(allOutcomes[count], backupOutcomes[i], l) !== 4){
     i--;
     }
@@ -105,7 +105,7 @@ function decideSingle(l){ //generates the games based on outcomes by testing if 
   }
   return games;
 }
-function getRounds(games, p){ //p is once again for primes
+function getRounds(games, p){ //p is once again for primes posts the rounds
   var officialGames = [];
   console.log("ran")
   for(var i = 0; i < games.length; i+=2){
