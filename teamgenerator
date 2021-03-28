@@ -1,0 +1,151 @@
+function factorialize(num) {
+  if (num < 0) 
+        return -1;
+  else if (num == 0) 
+      return 1;
+    else {
+        return (num * factorialize(num - 1));
+    }
+}
+function testPrime(n) {
+  if(n === 1) {
+    return false;
+  }
+  if(n === 2) {
+    return true;
+  }
+  var count = 0;
+  for(var i = 1; i <= n; i++){
+    if(n % i === 0){
+      count++;
+    }    
+  }
+  if(count === 2){
+  return true;
+  }
+}
+function generatePrimes(n){
+  var primeHolder = [];
+  var count = 1;
+  for(var i = 0; i < n; i++){
+    
+    while(!testPrime(count)){
+      count++;
+    }
+    primeHolder.push(count)
+  count++;
+  }
+  return primeHolder;
+}
+function createPotentialOutcomes(l){
+  var teams = []
+  for (var i = 0; i < l.length; i++)
+  {
+    for (var z = i + 1; z < l.length; z++)
+    {
+    teams.push((l[i] * l[z]));
+    }
+  }
+  return teams;
+}
+function comparePrimes(t, u, p){//p is the list of primes
+  var primeable = 0;  
+  for(var i = 0; i < p.length; i++){
+    if(t % p[i] === 0 || u % p[i] === 0){
+      primeable++;
+    }
+  }
+  return primeable;
+}
+function decideSingle(l){
+  var allOutcomes = createPotentialOutcomes(l);
+  var backupOutcomes = createPotentialOutcomes(l);
+  var game = [];
+  var games = [];
+  var count = 0;
+  var i = allOutcomes.length-1;
+  //console.log(allOutcomes.length);
+  while(allOutcomes.length > count){
+    while(comparePrimes(allOutcomes[count], allOutcomes[i], l) !== 4){
+      //console.log(i);
+      
+      i--;
+    }
+    //console.log(String(allOutcomes[count]) + "  2: " + String(allOutcomes[i]));
+    game = [allOutcomes[count], allOutcomes[i]];
+    console.log(game);
+    games.push(allOutcomes[count]);
+    games.push(allOutcomes[i])
+    allOutcomes.splice(i, 1);
+    count++;
+    i = allOutcomes.length-1;
+    
+  }
+  for(var g = 0; g < allOutcomes.length; g++){
+    for(var z = 0; z < games.length; z++){
+      //console.log(String(games[z] + ":" + String(allOutcomes[g])));
+      if(games[z] === allOutcomes[g]){
+        allOutcomes.splice(g, 1);
+      }
+    }
+  }
+  //allOutcomes.splice(0, count - 1);
+  console.log("leftovers: " + allOutcomes);
+  i = backupOutcomes.length - 1;
+  count = 0;
+  console.log(allOutcomes.length);
+  for(var q = 0; q < allOutcomes.length; q++){
+  while(comparePrimes(allOutcomes[count], backupOutcomes[i], l) !== 4){
+    i--;
+    }
+    games.push(allOutcomes[count]);
+    games.push(backupOutcomes[i])
+    backupOutcomes.splice(i, 1);
+    count++;
+  }
+  return games;
+}
+function getRounds(games, p){ //p is once again for primes
+  var officialGames = [];
+  console.log("ran")
+  for(var i = 0; i < games.length; i+=2){
+    var z = "team: ";
+    for(var g = 0; g < p.length; g++){
+      if(games[i] % p[g] === 0){
+        z += " " + g
+      }
+    }
+    z += " vs "
+    for(var g = 0; g < p.length; g++){
+      if(games[i + 1] % p[g] === 0){
+        z += " " + g
+      }
+    }
+    officialGames.push("\nround " + i + " \n"+ z);
+  }
+  return officialGames;
+}
+
+
+
+var players = [1, 2, 3, 4, 5]; //these are the visuals
+var difference = players.length - size;
+var size = 2
+var prob = factorialize(players.length)/(factorialize(size) * factorialize((players.length - size)));
+var teams = [];
+var indexi = 0;
+var indexz = 1;
+for (var i = 0; i < players.length; i++)
+{
+for (var z = i + 1; z < players.length; z++)
+{
+teams.push((String(players[i]) + String(players[z])));
+}
+}
+console.log(teams);
+console.log(prob);
+var primes = generatePrimes(5);
+console.log(primes);
+console.log(createPotentialOutcomes(primes));
+console.log("games" + String(decideSingle(primes)));
+console.log("get rounds " + String(getRounds(decideSingle(primes), primes)));
